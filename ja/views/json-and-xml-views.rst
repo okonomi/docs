@@ -1,4 +1,4 @@
-JSONとXMLビュー 
+JSONとXMLビュー
 ###############
 
 CakePHP2.1には新しい二つのビュークラスがあります。 ``XmlView`` と ``JsonView`` を使うとXMLとJSONのレスポンスを簡単に作成でき、
@@ -10,7 +10,7 @@ CakePHP2.1には新しい二つのビュークラスがあります。 ``XmlView
 データビューを生成するには二つの方法があります。一つ目は ``_serialize`` キーを使う方法です。
 二つ目は、普通のビューファイルを作成する方法です。
 
-データビューを有効にする 
+データビューを有効にする
 ========================
 
 データビュークラスを使う前に、ちょっとした設定が必要になります。:
@@ -18,12 +18,18 @@ CakePHP2.1には新しい二つのビュークラスがあります。 ``XmlView
 #. :php:meth:`Router::parseExtensions()` を使ってjsonとxml拡張子を有効にして下さい。
    この設定によってルータが複数の拡張子をハンドリングできるようになります。
 #. :php:class:`RequestHandlerComponent` をコントローラのコンポーネントリストに追加して下さい。
-   この設定によってコンテンツのタイプによって自動的にビュークラスが切り替わるようになります。 
+   この設定によってコンテンツのタイプによって自動的にビュークラスが切り替わるようになります。
+   You can also set the component up with the ``viewClassMap`` setting,
+   to map types to your custom classes and/or map other data types.
+
+.. versionadded:: 2.3
+    :php:meth:`RequestHandlerComponent::viewClassMap()` method has been added to map types to viewClasses.
+    The viewClassMap setting will not work on earlier versions.
 
 ``Router::parseExtensions('json');`` をルータファイルに追加すると、``.json`` 拡張子のリクエストを受けた時や、
-``application/json`` ヘッダを受け取った時にCakePHPは自動的にビュークラスを切り替えるようになります。 
+``application/json`` ヘッダを受け取った時にCakePHPは自動的にビュークラスを切り替えるようになります。
 
-シリアライズキーと一緒にデータビューを使う 
+シリアライズキーと一緒にデータビューを使う
 ==========================================
 
 ``_serialize`` キーはデータビューを使っているときに他のビュー変数がシリアライズされるべきかどうかを示している特別なビュー変数です。
@@ -66,7 +72,7 @@ CakePHP2.1には新しい二つのビュークラスがあります。 ``XmlView
             $this->set(compact('posts', 'comments'));
         }
     }
- 
+
     // ビューコード - app/View/Posts/json/index.ctp
     foreach ($posts as &$post) {
         unset($post['Post']['generated_html']);
@@ -83,7 +89,13 @@ CakePHP2.1には新しい二つのビュークラスがあります。 ``XmlView
 
     Xmlビューデータを生成するためのクラスです。XmlViewの使い方は上記の説明を参照して下さい。
 
+    By default when using ``_serialize`` the XmlView will wrap your serialized
+    view variables with a ``<response>`` node. You can set a custom name for
+    this node using the ``_rootNode`` view variable.
+
+    .. versionadded:: 2.3
+        The ``_rootNode`` feature was added.
+
 .. php:class:: JsonView
 
     Jsonビューデータを生成するためのクラスです。JsonViewの使い方は上記の説明を参照して下さい。
-
