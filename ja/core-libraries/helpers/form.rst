@@ -1,5 +1,5 @@
-FormHelper
-##########
+Formヘルパー
+############
 
 .. php:class:: FormHelper(View $view, array $settings = array())
 
@@ -10,7 +10,7 @@ FormHelper is also flexible - it will do almost everything for
 you using conventions, or you can use specific methods to get
 only what you need.
 
-Creating Forms
+フォームの作成
 ==============
 
 The first method you’ll need to use in order to take advantage of
@@ -108,8 +108,8 @@ opening form tag.
         default by supplying ``$options['url']`` in the second parameter of
         ``$this->Form->create()``.
 
-Options for create()
---------------------
+create() のオプション
+---------------------
 
 There are a number of options for create():
 
@@ -217,8 +217,8 @@ There are a number of options for create():
     echo $this->Form->input('password'); // No div, no label
     echo $this->Form->input('username', array('label' => 'Username')); // has a label element
 
-Closing the Form
-================
+フォームの終了
+==============
 
 .. php:method:: end($options = null)
 
@@ -275,8 +275,8 @@ Closing the Form
 
 .. _automagic-form-elements:
 
-Creating form elements
-======================
+フォームの要素の作成
+====================
 
 There are a few ways to create form inputs with the FormHelper.  We'll start by
 looking at ``input()``. This method will automatically inspect the model field it
@@ -421,8 +421,8 @@ field.  Internally ``input()`` delegates to other methods in FormHelper.
     - ``legend`` Set to false to disable the legend for the generated input set.
       Or supply a string to customize the legend text.
 
-Field naming conventions
-------------------------
+フィールドの命名規則
+--------------------
 
 The Form helper is pretty smart. Whenever you specify a field name
 with the form helper methods, it'll automatically use the current
@@ -464,8 +464,8 @@ set the ``name`` attribute to override the default behavior::
     ));
 
 
-Options
--------
+オプション
+----------
 
 ``FormHelper::input()`` supports a large number of options. In addition to its
 own options ``input()`` accepts options for the generated input types, as well as
@@ -721,7 +721,7 @@ html attributes. The following will cover the options specific to
   If you need to later change the defaults you can use
   :php:meth:`FormHelper::inputDefaults()`.
 
-Generating specific types of inputs
+生成されるinputタグを詳しく設定する
 ===================================
 
 In addition to the generic ``input()`` method, ``FormHelper`` has specific
@@ -732,7 +732,7 @@ generate fully custom form layouts.
 
 .. _general-input-options:
 
-Common options
+共通オプション
 --------------
 
 Many of the various input element methods support a common set of options.  All
@@ -777,8 +777,8 @@ use.  Any non-special option name will be treated as an HTML attribute, and
 applied to the generated HTML input element.
 
 
-Options for select, checkbox and  radio inputs
-----------------------------------------------
+select, checkbox, radio のオプション
+------------------------------------
 
 * ``$options['selected']`` Used in combination with a select-type input (i.e.
   For types select, date, time, datetime). Set ‘selected’ to the value of the
@@ -916,8 +916,8 @@ Datetime options
   Would create 4 options in the minute select. One for each 15
   minutes.
 
-Form Element-Specific Methods
-=============================
+フォームの要素固有のメソッド
+============================
 
 .. php:method:: label(string $fieldName, string $text, array $options)
 
@@ -1320,8 +1320,8 @@ Form Element-Specific Methods
     way PHP handles data passed via file fields
     `read the PHP manual section on file uploads <http://php.net/features.file-upload>`_.
 
-Validating Uploads
-------------------
+アップロードのバリデート
+------------------------
 
 Below is an example validation method you could define in your
 model to validate whether a file has been successfully uploaded::
@@ -1355,8 +1355,8 @@ Will output:
     ``$this->Form->create()``
 
 
-Creating buttons and submit elements
-====================================
+ボタンや送信ボタンの作成
+========================
 
 .. php:method:: submit(string $caption, array $options)
 
@@ -1442,8 +1442,8 @@ Creating buttons and submit elements
     .. versionchanged:: 2.3
         The ``method`` option was added.
 
-Creating date and time inputs
-=============================
+日付や時間の入力の作成
+======================
 
 .. php:method:: dateTime($fieldName, $dateFormat = 'DMY', $timeFormat = '12', $attributes = array())
 
@@ -1552,8 +1552,8 @@ Creating date and time inputs
     Creates a select element populated with ‘am’ and ‘pm’.
 
 
-Displaying and checking errors
-==============================
+エラーチェックや画面への表示
+============================
 
 .. php:method:: error(string $fieldName, mixed $text, array $options)
 
@@ -1587,8 +1587,8 @@ Displaying and checking errors
     errors. Otherwise it returns the validation message.
 
 
-Setting Defaults for all fields
-===============================
+すべてのフィールドのデフォルト値の設定
+======================================
 
 .. versionadded:: 2.2
 
@@ -1610,8 +1610,8 @@ input() call::
     echo $this->Form->input('password'); // No div, no label with class 'fancy'
     echo $this->Form->input('username', array('label' => 'Username')); // has a label element same defaults
 
-Working with SecurityComponent
-==============================
+SecurityComponentとの協調
+=========================
 
 :php:meth:`SecurityComponent` offers several features that make your forms safer
 and more secure.  By simply including the ``SecurityComponent`` in your
@@ -1636,8 +1636,8 @@ special ``_Token`` inputs are generated.
 
 .. _form-improvements-1-3:
 
-2.0 updates
-===========
+2.0 での更新
+============
 
 **$selected parameter removed**
 
