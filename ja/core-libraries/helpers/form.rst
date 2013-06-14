@@ -3,12 +3,20 @@ Formヘルパー
 
 .. php:class:: FormHelper(View $view, array $settings = array())
 
-The FormHelper does most of the heavy lifting in form creation.
-The FormHelper focuses on creating forms quickly, in a way that
-will streamline validation, re-population and layout. The
-FormHelper is also flexible - it will do almost everything for
-you using conventions, or you can use specific methods to get
-only what you need.
+..
+   The FormHelper does most of the heavy lifting in form creation.
+   The FormHelper focuses on creating forms quickly, in a way that
+   will streamline validation, re-population and layout. The
+   FormHelper is also flexible - it will do almost everything for
+   you using conventions, or you can use specific methods to get
+   only what you need.
+
+Formヘルパーはフォームの作成に労力のほとんどを行います。
+Formヘルパーはすばやくフォームを作成することに焦点を当てていて、
+検証を効率化するような方法で再人口とレイアウト。
+Formヘルパーは柔軟性があります。それはあなたが規約を使用するため、
+ほとんどすべてのものを行います、またはあなたが必要とするものだけを取得する
+特定のメソッドを使用することができます。
 
 フォームの作成
 ==============
