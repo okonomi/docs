@@ -21,21 +21,33 @@ Formヘルパーは柔軟性があります。それはあなたが規約を使�
 フォームの作成
 ==============
 
-The first method you’ll need to use in order to take advantage of
-the FormHelper is ``create()``. This special method outputs an
-opening form tag.
+..
+   The first method you’ll need to use in order to take advantage of
+   the FormHelper is ``create()``. This special method outputs an
+   opening form tag.
+
+Formヘルパーを活用するために、まずはじめに使うのは ``create()`` メソッドです。
+この特別なメソッドはformの開始タグを出力します。
 
 .. php:method:: create(string $model = null, array $options = array())
 
-    All parameters are optional. If ``create()`` is called with no
-    parameters supplied, it assumes you are building a form that
-    submits to the current controller, via the current URL.
-    The default method for form submission is POST.
-    The form element is also returned with a DOM ID. The ID is
-    generated using the name of the model, and the name of the
-    controller action, CamelCased. If I were to call ``create()``
-    inside a UsersController view, I’d see something like the following
-    output in the rendered view:
+    ..
+       All parameters are optional. If ``create()`` is called with no
+       parameters supplied, it assumes you are building a form that
+       submits to the current controller, via the current URL.
+       The default method for form submission is POST.
+       The form element is also returned with a DOM ID. The ID is
+       generated using the name of the model, and the name of the
+       controller action, CamelCased. If I were to call ``create()``
+       inside a UsersController view, I’d see something like the following
+       output in the rendered view:
+
+    もし ``create()`` がパラメータなしで呼ばれたら、それはあなたが現在のURLを経由して、
+    現在のコントローラに送信するフォームを構築していると仮定されます。
+    フォーム送信のためのデフォルトのメソッドはPOSTです。
+    form要素はDOM ID付きで返されます。IDは、モデル名とコントローラ·アクション名を用いて生成し、CamelCase化される。
+    私がコールする ``create()`` がUsersControllerのビューの内側にあった場合は、
+    私がレンダリングされたビューで次の出力のようなものを参照してくださいね:
 
     .. code-block:: html
 
@@ -43,37 +55,59 @@ opening form tag.
 
     .. note::
 
-        You can also pass ``false`` for ``$model``. This will place your
-        form data into the array: ``$this->request->data`` (instead of in the
-        sub-array: ``$this->request->data['Model']``). This can be handy for short
-        forms that may not represent anything in your database.
+        ..
+           You can also pass ``false`` for ``$model``. This will place your
+           form data into the array: ``$this->request->data`` (instead of in the
+           sub-array: ``$this->request->data['Model']``). This can be handy for short
+           forms that may not represent anything in your database.
 
-    The ``create()`` method allows us to customize much more using the
-    parameters, however. First, you can specify a model name. By
-    specifying a model for a form, you are creating that form's
-    *context*. All fields are assumed to belong to this model (unless
-    otherwise specified), and all models referenced are assumed to be
-    associated with it. If you do not specify a model, then it assumes
-    you are using the default model for the current controller::
+        ``$model`` に対して ``false`` を渡すこともできます。
+        これは、配列: ``$this->request->data`` にフォームデータを配置します(サブアレイ内 ``$this->request->data['Model']`` の代わりに)。
+        これにより、データベースとは関係ない短い形式のための小さなフォームをことができます。
 
-        // If you are on /recipes/add
+    ..
+       The ``create()`` method allows us to customize much more using the
+       parameters, however. First, you can specify a model name. By
+       specifying a model for a form, you are creating that form's
+       *context*. All fields are assumed to belong to this model (unless
+       otherwise specified), and all models referenced are assumed to be
+       associated with it. If you do not specify a model, then it assumes
+       you are using the default model for the current controller::
+
+    ``create()`` メソッドは、パラメータを使用して多くをカスタマイズすることができます。
+    まず、モデル名を指定することができます。フォームのモデルを指定することによって、そのフォームの *コンテキスト* を作成している。
+    すべてのフィールドが、このモデル（特に指定のない限り）に属すると仮定され、参照されるすべてのモデルはそれに関連付けされているものとする。
+    モデルを指定しない場合、それはあなたが現在のコントローラーのデフォルトのモデルを使用していることを前提とされます。 ::
+
+        // /recipes/add にある場合
         echo $this->Form->create('Recipe');
 
-    Output:
+    ..
+       Output:
+
+    出力:
 
     .. code-block:: php
 
         <form id="RecipeAddForm" method="post" action="/recipes/add">
 
-    This will POST the form data to the ``add()`` action of
-    RecipesController. However, you can also use the same logic to
-    create an edit form. The FormHelper uses the ``$this->request->data``
-    property to automatically detect whether to create an add or edit
-    form. If ``$this->request->data`` contains an array element named after the
-    form's model, and that array contains a non-empty value of the
-    model's primary key, then the FormHelper will create an edit form
-    for that record. For example, if we browse to
-    http://site.com/recipes/edit/5, we would get the following::
+    ..
+       This will POST the form data to the ``add()`` action of
+       RecipesController. However, you can also use the same logic to
+       create an edit form. The FormHelper uses the ``$this->request->data``
+       property to automatically detect whether to create an add or edit
+       form. If ``$this->request->data`` contains an array element named after the
+       form's model, and that array contains a non-empty value of the
+       model's primary key, then the FormHelper will create an edit form
+       for that record. For example, if we browse to
+       http://site.com/recipes/edit/5, we would get the following::
+
+    これはRecipesControllerコントローラの ``add()`` をアクションへのフォームデータをPOSTします。
+    ただし、編集フォームを作成するために同じロジックを使用することができます。
+    Formヘルパーのは ``$this->request->data`` を使用します自動的にフォームを追加を作成または編集するかどうかを検出するプロパティ。
+    もし ``$this->request->data`` フォームのモデルにちなんで名付けられた配列要素が含まれており、
+    その配列は、モデルの主キーの空でない値が含まれ、その後Formヘルパーは、そのレコードの編集フォームを作成します。
+    我々は http://site.com/recipes/edit/5 を参照している場合例えば、我々は次のようになるだろう::
 
         // Controller/RecipesController.php:
         public function edit($id = null) {
@@ -88,7 +122,7 @@ opening form tag.
         // Since $this->request->data['Recipe']['id'] = 5, we will get an edit form
         <?php echo $this->Form->create('Recipe'); ?>
 
-    Output:
+    出力:
 
     .. code-block:: html
 
@@ -97,11 +131,20 @@ opening form tag.
 
     .. note::
 
-        Since this is an edit form, a hidden input field is generated to
-        override the default HTTP method.
+        ..
+           Since this is an edit form, a hidden input field is generated to
+           override the default HTTP method.
+
+        これは、編集フォームであるので、hidden入力フィールドが、
+        デフォルトのHTTPメソッドをオーバーライドするために生成される。
+
+    ..
+       When creating forms for models in plugins, you should always use
+       :term:`plugin syntax` when creating a form.  This will ensure the form is
+       correctly generated::
 
     When creating forms for models in plugins, you should always use
-    :term:`plugin syntax` when creating a form.  This will ensure the form is
+    :term:`プラグイン記法` when creating a form.  This will ensure the form is
     correctly generated::
 
         echo $this->Form->create('ContactManager.Contact');
