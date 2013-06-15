@@ -1,3 +1,7 @@
+..
+   FormHelper
+   ##########
+
 Formヘルパー
 ############
 
@@ -17,6 +21,10 @@ Formヘルパーはすばやくフォームを作成することに焦点を当�
 Formヘルパーは柔軟性があります。それはあなたが規約を使用するため、
 ほとんどすべてのものを行います、またはあなたが必要とするものだけを取得する
 特定のメソッドを使用することができます。
+
+..
+   Creating Forms
+   ==============
 
 フォームの作成
 ==============
@@ -170,59 +178,94 @@ Formヘルパーを活用するために、まずはじめに使うのは ``crea
 create() のオプション
 ---------------------
 
-There are a number of options for create():
+..
+   There are a number of options for create():
 
-* ``$options['type']`` This key is used to specify the type of form to be created. Valid
-  values include 'post', 'get', 'file', 'put' and 'delete'.
+  create() にはオプションがいくつかあります:
 
-  Supplying either 'post' or 'get' changes the form submission method
-  accordingly::
+..
+   * ``$options['type']`` This key is used to specify the type of form to be created. Valid
+     values include 'post', 'get', 'file', 'put' and 'delete'.
+
+* ``$options['type']`` このキーは、作成するフォームの種類を指定するために使用されます。
+  有効な値は、'post'、'get'、'file'、'put'、'delete' です。
+
+  ..
+     Supplying either 'post' or 'get' changes the form submission method
+     accordingly::
+
+  'post' か 'get' が与えられた場合はそれに応じてフォームの送信メソッドを変更します。 ::
 
       echo $this->Form->create('User', array('type' => 'get'));
 
-  Output:
+  出力:
 
   .. code-block:: html
 
      <form id="UserAddForm" method="get" action="/users/add">
 
-  Specifying 'file' changes the form submission method to 'post', and
-  includes an enctype of "multipart/form-data" on the form tag. This
-  is to be used if there are any file elements inside the form. The
-  absence of the proper enctype attribute will cause the file uploads
-  not to function::
+  ..
+     Specifying 'file' changes the form submission method to 'post', and
+     includes an enctype of "multipart/form-data" on the form tag. This
+     is to be used if there are any file elements inside the form. The
+     absence of the proper enctype attribute will cause the file uploads
+     not to function::
+
+  'file' を指定すると、フォームの送信送信メソッドを'post'に変更し、
+  "multipart/form-data" を formタグのenctypeに設定します。
+  適切なenctype属性の不在は、ファイルのアップロードが機能しない原因となります。 ::
 
       echo $this->Form->create('User', array('type' => 'file'));
 
-  Output:
+  ..
+     Output:
+
+  出力:
 
   .. code-block:: html
 
      <form id="UserAddForm" enctype="multipart/form-data" method="post" action="/users/add">
 
-  When using 'put' or 'delete', your form will be functionally
-  equivalent to a 'post' form, but when submitted, the HTTP request
-  method will be overridden with 'PUT' or 'DELETE', respectively.
-  This allows CakePHP to emulate proper REST support in web
-  browsers.
+  ..
+     When using 'put' or 'delete', your form will be functionally
+     equivalent to a 'post' form, but when submitted, the HTTP request
+     method will be overridden with 'PUT' or 'DELETE', respectively.
+     This allows CakePHP to emulate proper REST support in web
+     browsers.
 
-* ``$options['action']`` The action key allows you to point the form to a
-  specific action in your current controller. For example, if you’d like to
-  point the form to the login() action of the current controller, you would
-  supply an $options array like the following::
+  'put' や 'delete' を使った場合、formは 'post' 機能的におなじようになりますが、
+  サブミットしたときに、HTTPリクエストメソッドはそれぞれ、'PUT' または 'DELETE' で上書きされます。
+  これにより、CakePHPはWebブラウザで適切なRESTサポートをエミュレートすることができます。
+
+..
+   * ``$options['action']`` The action key allows you to point the form to a
+     specific action in your current controller. For example, if you’d like to
+     point the form to the login() action of the current controller, you would
+     supply an $options array like the following::
+
+* ``$options['action']`` action キーは、あなたの現在のコントローラー内の特定のアクションへのフォームをポイントすることができます。
+  たとえば、現在のコントローラの login() アクションにフォームを指摘したいなら、
+  あなたは次のように $options 配列を指定するでしょう。 ::
 
     echo $this->Form->create('User', array('action' => 'login'));
 
-  Output:
+  ..
+     Output:
+
+  出力:
 
   .. code-block:: html
 
      <form id="UserLoginForm" method="post" action="/users/login">
 
-* ``$options['url']`` If the desired form action isn’t in the current
-  controller, you can specify a URL for the form action using the ‘url’ key of
-  the $options array. The supplied URL can be relative to your CakePHP
-  application::
+..
+   * ``$options['url']`` If the desired form action isn’t in the current
+     controller, you can specify a URL for the form action using the ‘url’ key of
+     the $options array. The supplied URL can be relative to your CakePHP
+     application::
+
+* ``$options['url']`` 希望するformのactionが現在のコントローラでない場合は、
+  $options 配列の 'url' キーを使用して、formのactionのURLを指定することができます。 ::
 
     echo $this->Form->create(null, array('url' => '/recipes/add'));
     // or
