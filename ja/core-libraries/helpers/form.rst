@@ -143,21 +143,29 @@ Formヘルパーを活用するために、まずはじめに使うのは ``crea
        :term:`plugin syntax` when creating a form.  This will ensure the form is
        correctly generated::
 
-    When creating forms for models in plugins, you should always use
-    :term:`プラグイン記法` when creating a form.  This will ensure the form is
-    correctly generated::
+    プラグインでモデル用のフォームを作成する場合、フォームを作成するときはつねにプラグイン記法使うべきです。
+    そうすればフォームが正しく生成されるようになります。 ::
 
         echo $this->Form->create('ContactManager.Contact');
 
-    The ``$options`` array is where most of the form configuration
-    happens. This special array can contain a number of different
-    key-value pairs that affect the way the form tag is generated.
+    ..
+       The ``$options`` array is where most of the form configuration
+       happens. This special array can contain a number of different
+       key-value pairs that affect the way the form tag is generated.
+
+    ``$options`` 配列でほとんどのフォーム構成の問題が発生します。
+    この特別な配列は、フォームタグが生成される方法に影響を与える別のキーと
+    値のペアの数を含むことができる。
 
     .. versionchanged:: 2.0
-        The default url for all forms, is now the current url including
-        passed, named, and querystring parameters. You can override this
-        default by supplying ``$options['url']`` in the second parameter of
-        ``$this->Form->create()``.
+        すべてのフォームのデフォルトのURLは、渡された名前が付けられ、クエリ文字列パラメータを含む現在のURLです。
+        あなたは、 ``$this->Form->create()`` の第二引数で ``$options['url']`` を供給することにより、このデフォルト値を上書きすることができます。
+
+        ..
+           The default url for all forms, is now the current url including
+           passed, named, and querystring parameters. You can override this
+           default by supplying ``$options['url']`` in the second parameter of
+           ``$this->Form->create()``.
 
 create() のオプション
 ---------------------
