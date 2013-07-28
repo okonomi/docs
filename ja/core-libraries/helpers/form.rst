@@ -213,7 +213,7 @@ create() のオプション
 
   'file' を指定すると、フォームの送信送信メソッドを'post'に変更し、
   "multipart/form-data" を formタグのenctypeに設定します。
-  適切なenctype属性の不在は、ファイルのアップロードが機能しない原因となります。 ::
+  適切なenctype属性が設定されていないと、ファイルのアップロードが機能しない原因となります。 ::
 
       echo $this->Form->create('User', array('type' => 'file'));
 
@@ -273,27 +273,39 @@ create() のオプション
         'url' => array('controller' => 'recipes', 'action' => 'add')
     ));
 
-  Output:
+  ..
+     Output:
+
+  出力:
 
   .. code-block:: html
 
      <form method="post" action="/recipes/add">
 
-  or can point to an external domain::
+  ..
+     or can point to an external domain::
+
+  または、外部ドメインを指定することもできます::
 
     echo $this->Form->create(null, array(
         'url' => 'http://www.google.com/search',
         'type' => 'get'
     ));
 
-  Output:
+  ..
+     Output:
+
+  出力:
 
   .. code-block:: html
 
     <form method="get" action="http://www.google.com/search">
 
-  Also check :php:meth:`HtmlHelper::url()` method for more examples of
-  different types of urls.
+  ..
+     Also check :php:meth:`HtmlHelper::url()` method for more examples of
+     different types of urls.
+
+  他のURLのより詳しい使用例は :php:meth:`HtmlHelper::url()` メソッドをチェックしてください。
 
 * ``$options['default']`` If 'default' has been set to boolean false, the form's
   submit action is changed so that pressing the submit button does not submit
