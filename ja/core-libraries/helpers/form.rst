@@ -307,11 +307,18 @@ create() のオプション
 
   他のURLのより詳しい使用例は :php:meth:`HtmlHelper::url()` メソッドをチェックしてください。
 
-* ``$options['default']`` If 'default' has been set to boolean false, the form's
-  submit action is changed so that pressing the submit button does not submit
-  the form. If the form is meant to be submitted via AJAX, setting 'default' to
-  false suppresses the form's default behavior so you can grab the data and
-  submit it via AJAX instead.
+..
+   * ``$options['default']`` If 'default' has been set to boolean false, the form's
+     submit action is changed so that pressing the submit button does not submit
+     the form. If the form is meant to be submitted via AJAX, setting 'default' to
+     false suppresses the form's default behavior so you can grab the data and
+     submit it via AJAX instead.
+
+* ``$options['default']`` もし 'default`' に false がセットされた場合、
+  フォームの送信アクションは、submit ボタンを押しても送信されないように変更されます。
+  フォームは、データを取得し、代わりにAJAXを介してそれを送信することができるので、
+  'default' を false に設定することでフォームのデフォルトの動作が抑制されるので、
+  代わりにAJAXを介してデータを送信することができます。
 
 * ``$options['inputDefaults']`` You can declare a set of default options for
   ``input()`` with the ``inputDefaults`` key to customize your default input
