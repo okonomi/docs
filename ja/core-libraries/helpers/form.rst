@@ -314,15 +314,19 @@ create() のオプション
      false suppresses the form's default behavior so you can grab the data and
      submit it via AJAX instead.
 
-* ``$options['default']`` もし 'default`' に false がセットされた場合、
+* ``$options['default']`` もし 'default' に false がセットされた場合、
   フォームの送信アクションは、submit ボタンを押しても送信されないように変更されます。
   フォームは、データを取得し、代わりにAJAXを介してそれを送信することができるので、
   'default' を false に設定することでフォームのデフォルトの動作が抑制されるので、
   代わりにAJAXを介してデータを送信することができます。
 
-* ``$options['inputDefaults']`` You can declare a set of default options for
-  ``input()`` with the ``inputDefaults`` key to customize your default input
-  creation::
+..
+   * ``$options['inputDefaults']`` You can declare a set of default options for
+     ``input()`` with the ``inputDefaults`` key to customize your default input
+     creation::
+
+* ``$options['inputDefaults']`` ``inputDefaults`` キー に ``input()`` のデフォルトのオプション値を定義しておくことができます。
+  これを設定すると、input を作成するときのデフォルト値が変更されます。::
 
     echo $this->Form->create('User', array(
         'inputDefaults' => array(
