@@ -335,12 +335,16 @@ create() のオプション
         )
     ));
 
-  All inputs created from that point forward would inherit the
-  options declared in inputDefaults. You can override the
-  defaultOptions by declaring the option in the input() call::
+  ..
+     All inputs created from that point forward would inherit the
+     options declared in inputDefaults. You can override the
+     defaultOptions by declaring the option in the input() call::
 
-    echo $this->Form->input('password'); // No div, no label
-    echo $this->Form->input('username', array('label' => 'Username')); // has a label element
+  そのあと作成されるすべての input は、さきほどの inputDefaults で宣言されたオプションを継承します。
+  また、input() の呼び出しでオプションを指定することで継承したオプション値をオーバーライドすることができます。::
+
+    echo $this->Form->input('password'); // divなし, labelなし
+    echo $this->Form->input('username', array('label' => 'Username')); // label要素が出力される
 
 フォームの終了
 ==============
