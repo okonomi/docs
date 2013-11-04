@@ -267,8 +267,6 @@ create() のオプション
 * ``$options['url']`` 希望するformのactionが現在のコントローラでない場合は、
   $options 配列の 'url' キーを使用して、formのactionのURLを指定することができます。 ::
 
-    echo $this->Form->create(null, array('url' => '/recipes/add'));
-    // or
     echo $this->Form->create(null, array(
         'url' => array('controller' => 'recipes', 'action' => 'add')
     ));
