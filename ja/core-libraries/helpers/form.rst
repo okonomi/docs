@@ -1,19 +1,7 @@
-..
-   FormHelper
-   ##########
-
 Formヘルパー
 ############
 
 .. php:class:: FormHelper(View $view, array $settings = array())
-
-..
-   The FormHelper does most of the heavy lifting in form creation.
-   The FormHelper focuses on creating forms quickly, in a way that
-   will streamline validation, re-population and layout. The
-   FormHelper is also flexible - it will do almost everything for
-   you using conventions, or you can use specific methods to get
-   only what you need.
 
 Formヘルパーはフォームの作成に労力のほとんどを行います。
 Formヘルパーはすばやくフォームを作成することに焦点を当てていて、
@@ -22,38 +10,21 @@ Formヘルパーは柔軟性があります。それはあなたが規約を使�
 ほとんどすべてのものを行います、またはあなたが必要とするものだけを取得する
 特定のメソッドを使用することができます。
 
-..
-   Creating Forms
-   ==============
-
 フォームの作成
 ==============
 
-..
-   The first method you’ll need to use in order to take advantage of
-   the FormHelper is ``create()``. This special method outputs an
-   opening form tag.
-
-Formヘルパーを活用するために、まずはじめに使うのは ``create()`` メソッドです。
+Formヘルパーを活用するために、\
+まずはじめに使うのは ``create()`` メソッドです。
 この特別なメソッドはformの開始タグを出力します。
 
 .. php:method:: create(string $model = null, array $options = array())
 
-    ..
-       All parameters are optional. If ``create()`` is called with no
-       parameters supplied, it assumes you are building a form that
-       submits to the current controller, via the current URL.
-       The default method for form submission is POST.
-       The form element is also returned with a DOM ID. The ID is
-       generated using the name of the model, and the name of the
-       controller action, CamelCased. If I were to call ``create()``
-       inside a UsersController view, I’d see something like the following
-       output in the rendered view:
-
-    もし ``create()`` がパラメータなしで呼ばれたら、それはあなたが現在のURLを経由して、
+    すべてのパラメータは任意です。もし ``create()`` がパラメータなしで呼ばれたら、それはあなたが現在のURLを経由して、
     現在のコントローラに送信するフォームを構築していると仮定されます。
     フォーム送信のためのデフォルトのメソッドはPOSTです。
-    form要素はDOM ID付きで返されます。IDは、モデル名とコントローラ·アクション名を用いて生成し、CamelCase化される。
+    form要素はDOM ID付きで返されます。IDは、\
+    モデル名とコントローラ·アクション名を用いて生成し、\
+    CamelCase化される。
     私がコールする ``create()`` がUsersControllerのビューの内側にあった場合は、
     私がレンダリングされたビューで次の出力のようなものを参照してくださいね:
 
@@ -63,24 +34,9 @@ Formヘルパーを活用するために、まずはじめに使うのは ``crea
 
     .. note::
 
-        ..
-           You can also pass ``false`` for ``$model``. This will place your
-           form data into the array: ``$this->request->data`` (instead of in the
-           sub-array: ``$this->request->data['Model']``). This can be handy for short
-           forms that may not represent anything in your database.
-
         ``$model`` に対して ``false`` を渡すこともできます。
         これは、配列: ``$this->request->data`` にフォームデータを配置します(サブアレイ内 ``$this->request->data['Model']`` の代わりに)。
         これにより、データベースとは関係ない短い形式のための小さなフォームをことができます。
-
-    ..
-       The ``create()`` method allows us to customize much more using the
-       parameters, however. First, you can specify a model name. By
-       specifying a model for a form, you are creating that form's
-       *context*. All fields are assumed to belong to this model (unless
-       otherwise specified), and all models referenced are assumed to be
-       associated with it. If you do not specify a model, then it assumes
-       you are using the default model for the current controller::
 
     ``create()`` メソッドは、パラメータを使用して多くをカスタマイズすることができます。
     まず、モデル名を指定することができます。フォームのモデルを指定することによって、そのフォームの *コンテキスト* を作成している。
@@ -90,25 +46,11 @@ Formヘルパーを活用するために、まずはじめに使うのは ``crea
         // /recipes/add にある場合
         echo $this->Form->create('Recipe');
 
-    ..
-       Output:
-
     出力:
 
     .. code-block:: php
 
         <form id="RecipeAddForm" method="post" action="/recipes/add">
-
-    ..
-       This will POST the form data to the ``add()`` action of
-       RecipesController. However, you can also use the same logic to
-       create an edit form. The FormHelper uses the ``$this->request->data``
-       property to automatically detect whether to create an add or edit
-       form. If ``$this->request->data`` contains an array element named after the
-       form's model, and that array contains a non-empty value of the
-       model's primary key, then the FormHelper will create an edit form
-       for that record. For example, if we browse to
-       http://site.com/recipes/edit/5, we would get the following::
 
     これはRecipesControllerコントローラの ``add()`` をアクションへのフォームデータをPOSTします。
     ただし、編集フォームを作成するために同じロジックを使用することができます。
@@ -127,7 +69,8 @@ Formヘルパーを活用するために、まずはじめに使うのは ``crea
         }
 
         // View/Recipes/edit.ctp:
-        // Since $this->request->data['Recipe']['id'] = 5, we will get an edit form
+        // Since $this->request->data['Recipe']['id'] = 5,
+        // we will get an edit form
         <?php echo $this->Form->create('Recipe'); ?>
 
     出力:
@@ -139,27 +82,13 @@ Formヘルパーを活用するために、まずはじめに使うのは ``crea
 
     .. note::
 
-        ..
-           Since this is an edit form, a hidden input field is generated to
-           override the default HTTP method.
-
         これは、編集フォームであるので、hidden入力フィールドが、
         デフォルトのHTTPメソッドをオーバーライドするために生成される。
 
-    ..
-       When creating forms for models in plugins, you should always use
-       :term:`plugin syntax` when creating a form.  This will ensure the form is
-       correctly generated::
-
-    プラグインでモデル用のフォームを作成する場合、フォームを作成するときはつねにプラグイン記法使うべきです。
+    プラグインでモデル用のフォームを作成する場合、フォームを作成するときはつねに :term:`plugin syntax` 使うべきです。
     そうすればフォームが正しく生成されるようになります。 ::
 
         echo $this->Form->create('ContactManager.Contact');
-
-    ..
-       The ``$options`` array is where most of the form configuration
-       happens. This special array can contain a number of different
-       key-value pairs that affect the way the form tag is generated.
 
     ``$options`` 配列でほとんどのフォーム構成の問題が発生します。
     この特別な配列は、フォームタグが生成される方法に影響を与える別のキーと
@@ -169,30 +98,13 @@ Formヘルパーを活用するために、まずはじめに使うのは ``crea
         すべてのフォームのデフォルトのURLは、渡された名前が付けられ、クエリ文字列パラメータを含む現在のURLです。
         あなたは、 ``$this->Form->create()`` の第二引数で ``$options['url']`` を供給することにより、このデフォルト値を上書きすることができます。
 
-        ..
-           The default url for all forms, is now the current url including
-           passed, named, and querystring parameters. You can override this
-           default by supplying ``$options['url']`` in the second parameter of
-           ``$this->Form->create()``.
-
 create() のオプション
 ---------------------
 
-..
-   There are a number of options for create():
-
-  create() にはオプションがいくつかあります:
-
-..
-   * ``$options['type']`` This key is used to specify the type of form to be created. Valid
-     values include 'post', 'get', 'file', 'put' and 'delete'.
+create() にはオプションがいくつかあります:
 
 * ``$options['type']`` このキーは、作成するフォームの種類を指定するために使用されます。
   有効な値は、'post'、'get'、'file'、'put'、'delete' です。
-
-  ..
-     Supplying either 'post' or 'get' changes the form submission method
-     accordingly::
 
   'post' か 'get' が与えられた場合はそれに応じてフォームの送信メソッドを変更します。 ::
 
@@ -204,44 +116,22 @@ create() のオプション
 
      <form id="UserAddForm" method="get" action="/users/add">
 
-  ..
-     Specifying 'file' changes the form submission method to 'post', and
-     includes an enctype of "multipart/form-data" on the form tag. This
-     is to be used if there are any file elements inside the form. The
-     absence of the proper enctype attribute will cause the file uploads
-     not to function::
-
   'file' を指定すると、フォームの送信送信メソッドを'post'に変更し、
   "multipart/form-data" を formタグのenctypeに設定します。
   適切なenctype属性が設定されていないと、ファイルのアップロードが機能しない原因となります。 ::
 
       echo $this->Form->create('User', array('type' => 'file'));
 
-  ..
-     Output:
-
   出力:
 
   .. code-block:: html
 
-     <form id="UserAddForm" enctype="multipart/form-data" method="post" action="/users/add">
-
-  ..
-     When using 'put' or 'delete', your form will be functionally
-     equivalent to a 'post' form, but when submitted, the HTTP request
-     method will be overridden with 'PUT' or 'DELETE', respectively.
-     This allows CakePHP to emulate proper REST support in web
-     browsers.
+     <form id="UserAddForm" enctype="multipart/form-data"
+        method="post" action="/users/add">
 
   'put' や 'delete' を使った場合、formは 'post' 機能的におなじようになりますが、
   サブミットしたときに、HTTPリクエストメソッドはそれぞれ、'PUT' または 'DELETE' で上書きされます。
   これにより、CakePHPはWebブラウザで適切なRESTサポートをエミュレートすることができます。
-
-..
-   * ``$options['action']`` The action key allows you to point the form to a
-     specific action in your current controller. For example, if you’d like to
-     point the form to the login() action of the current controller, you would
-     supply an $options array like the following::
 
 * ``$options['action']`` action キーは、あなたの現在のコントローラー内の特定のアクションへのフォームをポイントすることができます。
   たとえば、現在のコントローラの login() アクションにフォームを指摘したいなら、
@@ -249,20 +139,11 @@ create() のオプション
 
     echo $this->Form->create('User', array('action' => 'login'));
 
-  ..
-     Output:
-
   出力:
 
   .. code-block:: html
 
      <form id="UserLoginForm" method="post" action="/users/login">
-
-..
-   * ``$options['url']`` If the desired form action isn’t in the current
-     controller, you can specify a URL for the form action using the ‘url’ key of
-     the $options array. The supplied URL can be relative to your CakePHP
-     application::
 
 * ``$options['url']`` 希望するformのactionが現在のコントローラでない場合は、
   $options 配列の 'url' キーを使用して、formのactionのURLを指定することができます。 ::
@@ -271,17 +152,11 @@ create() のオプション
         'url' => array('controller' => 'recipes', 'action' => 'add')
     ));
 
-  ..
-     Output:
-
   出力:
 
   .. code-block:: html
 
      <form method="post" action="/recipes/add">
-
-  ..
-     or can point to an external domain::
 
   または、外部ドメインを指定することもできます::
 
@@ -290,38 +165,19 @@ create() のオプション
         'type' => 'get'
     ));
 
-  ..
-     Output:
-
   出力:
 
   .. code-block:: html
 
     <form method="get" action="http://www.google.com/search">
 
-  ..
-     Also check :php:meth:`HtmlHelper::url()` method for more examples of
-     different types of urls.
-
   他のURLのより詳しい使用例は :php:meth:`HtmlHelper::url()` メソッドをチェックしてください。
-
-..
-   * ``$options['default']`` If 'default' has been set to boolean false, the form's
-     submit action is changed so that pressing the submit button does not submit
-     the form. If the form is meant to be submitted via AJAX, setting 'default' to
-     false suppresses the form's default behavior so you can grab the data and
-     submit it via AJAX instead.
 
 * ``$options['default']`` もし 'default' に false がセットされた場合、
   フォームの送信アクションは、submit ボタンを押しても送信されないように変更されます。
   フォームは、データを取得し、代わりにAJAXを介してそれを送信することができるので、
   'default' を false に設定することでフォームのデフォルトの動作が抑制されるので、
   代わりにAJAXを介してデータを送信することができます。
-
-..
-   * ``$options['inputDefaults']`` You can declare a set of default options for
-     ``input()`` with the ``inputDefaults`` key to customize your default input
-     creation::
 
 * ``$options['inputDefaults']`` ``inputDefaults`` キー に ``input()`` のデフォルトのオプション値を定義しておくことができます。
   これを設定すると、input を作成するときのデフォルト値が変更されます。::
@@ -333,16 +189,15 @@ create() のオプション
         )
     ));
 
-  ..
-     All inputs created from that point forward would inherit the
-     options declared in inputDefaults. You can override the
-     defaultOptions by declaring the option in the input() call::
-
   そのあと作成されるすべての input は、さきほどの inputDefaults で宣言されたオプションを継承します。
   また、input() の呼び出しでオプションを指定することで継承したオプション値をオーバーライドすることができます。::
 
     echo $this->Form->input('password'); // divなし, labelなし
-    echo $this->Form->input('username', array('label' => 'Username')); // label要素が出力される
+    // label要素が出力される
+    echo $this->Form->input(
+        'username',
+        array('label' => 'Username')
+    );
 
 フォームの終了
 ==============
@@ -393,7 +248,7 @@ create() のオプション
 
         <div class="glass-pill"><input type="submit" value="Update" name="Update"></div>
 
-    See the `API <http://api20.cakephp.org>`_ for further details.
+    See the `Form Helper API <http://api.cakephp.org/2.4/class-FormHelper.html>`_ for further details.
 
     .. note::
 
@@ -518,7 +373,10 @@ field.  Internally ``input()`` delegates to other methods in FormHelper.
 
         $this->set('userGroups', $this->UserGroup->find('list'));
         // or
-        $this->set('reallyInappropriateModelNames', $this->ReallyInappropriateModelName->find('list'));
+        $this->set(
+            'reallyInappropriateModelNames',
+            $this->ReallyInappropriateModelName->find('list')
+        );
 
     .. note::
 
@@ -576,8 +434,10 @@ Output:
 
 .. code-block:: html
 
-    <input type="text" id="Modelname0Fieldname" name="data[Modelname][0][fieldname]">
-    <input type="text" id="Modelname1Fieldname" name="data[Modelname][1][fieldname]">
+    <input type="text" id="Modelname0Fieldname"
+        name="data[Modelname][0][fieldname]">
+    <input type="text" id="Modelname1Fieldname"
+        name="data[Modelname][1][fieldname]">
 
 
 FormHelper uses several field-suffixes internally for datetime input creation.
@@ -654,7 +514,8 @@ html attributes. The following will cover the options specific to
 
   .. code-block:: html
 
-    <div class="input text" id="mainDiv" title="Div Title" style="display:block">
+    <div class="input text" id="mainDiv" title="Div Title"
+        style="display:block">
         <label for="UserName">Name</label>
         <input name="data[User][name]" type="text" value="" id="UserName" />
     </div>
@@ -738,7 +599,9 @@ html attributes. The following will cover the options specific to
   following format::
 
     $this->Form->input('Model.field', array(
-        'error' => array('attributes' => array('wrap' => 'span', 'class' => 'bzzz'))
+        'error' => array(
+            'attributes' => array('wrap' => 'span', 'class' => 'bzzz')
+        )
     ));
 
   To prevent HTML being automatically escaped in the error message
@@ -884,7 +747,10 @@ common options shared by all input methods are as follows:
   default)::
 
     $sizes = array('s' => 'Small', 'm' => 'Medium', 'l' => 'Large');
-    echo $this->Form->input('size', array('options' => $sizes, 'default' => 'm'));
+    echo $this->Form->input(
+        'size',
+        array('options' => $sizes, 'default' => 'm')
+    );
 
   .. note::
 
@@ -973,7 +839,8 @@ select, checkbox, radio のオプション
 
   .. code-block:: html
 
-    <input type="checkbox" name="data[Post][Published]" value="1" id="PostPublished" />
+    <input type="checkbox" name="data[Post][Published]" value="1"
+        id="PostPublished" />
 
   If you want to create multiple blocks of inputs on a form that are
   all grouped together, you should use this parameter on all inputs
@@ -987,20 +854,26 @@ select, checkbox, radio のオプション
 
     <h2>Primary Colors</h2>
     <input type="hidden" name="data[Color][Color]" id="Colors_" value="0" />
-    <input type="checkbox" name="data[Color][Color][]" value="5" id="ColorsRed" />
+    <input type="checkbox" name="data[Color][Color][]" value="5"
+        id="ColorsRed" />
     <label for="ColorsRed">Red</label>
-    <input type="checkbox" name="data[Color][Color][]" value="5" id="ColorsBlue" />
+    <input type="checkbox" name="data[Color][Color][]" value="5"
+        id="ColorsBlue" />
     <label for="ColorsBlue">Blue</label>
-    <input type="checkbox" name="data[Color][Color][]" value="5" id="ColorsYellow" />
+    <input type="checkbox" name="data[Color][Color][]" value="5"
+        id="ColorsYellow" />
     <label for="ColorsYellow">Yellow</label>
 
     <h2>Tertiary Colors</h2>
     <input type="hidden" name="data[Color][Color]" id="Colors_" value="0" />
-    <input type="checkbox" name="data[Color][Color][]" value="5" id="ColorsGreen" />
+    <input type="checkbox" name="data[Color][Color][]" value="5"
+        id="ColorsGreen" />
     <label for="ColorsGreen">Green</label>
-    <input type="checkbox" name="data[Color][Color][]" value="5" id="ColorsPurple" />
+    <input type="checkbox" name="data[Color][Color][]" value="5"
+        id="ColorsPurple" />
     <label for="ColorsPurple">Purple</label>
-    <input type="checkbox" name="data[Addon][Addon][]" value="5" id="ColorsOrange" />
+    <input type="checkbox" name="data[Addon][Addon][]" value="5"
+        id="ColorsOrange" />
     <label for="ColorsOrange">Orange</label>
 
   Disabling the ``'hiddenField'`` on the second input group would
@@ -1042,6 +915,11 @@ Datetime options
 
   Would create 4 options in the minute select. One for each 15
   minutes.
+
+* ``$options['round']`` Can be set to `up` or `down` to force rounding in either direction.
+  Defaults to null which rounds half up according to `interval`.
+
+  .. versionadded:: 2.4
 
 フォームの要素固有のメソッド
 ============================
@@ -1089,7 +967,8 @@ Datetime options
 
     .. code-block:: html
 
-        <input name="data[User][username]" type="text" class="users" id="UserUsername" />
+        <input name="data[User][username]" type="text" class="users"
+            id="UserUsername" />
 
 .. php:method:: password(string $fieldName, array $options)
 
@@ -1101,7 +980,8 @@ Datetime options
 
     .. code-block:: html
 
-        <input name="data[User][password]" value="" id="UserPassword" type="password" />
+        <input name="data[User][password]" value="" id="UserPassword"
+            type="password" />
 
 .. php:method:: hidden(string $fieldName, array $options)
 
@@ -1142,7 +1022,10 @@ Datetime options
 
         echo $this->Form->textarea('notes', array('escape' => false);
         // OR....
-        echo $this->Form->input('notes', array('type' => 'textarea', 'escape' => false);
+        echo $this->Form->input(
+            'notes',
+            array('type' => 'textarea', 'escape' => false)
+        );
 
 
     **Options**
@@ -1153,7 +1036,10 @@ Datetime options
     * ``$options['rows'], $options['cols']`` These two keys specify the number of
       rows and columns::
 
-        echo $this->Form->textarea('textarea', array('rows' => '5', 'cols' => '5'));
+        echo $this->Form->textarea(
+            'textarea',
+            array('rows' => '5', 'cols' => '5')
+        );
 
       Output:
 
@@ -1229,10 +1115,13 @@ Datetime options
 
       .. code-block:: html
 
-        <input name="data[User][gender]" id="UserGender_" value="" type="hidden" />
-        <input name="data[User][gender]" id="UserGenderM" value="M" type="radio" />
+        <input name="data[User][gender]" id="UserGender_" value=""
+            type="hidden" />
+        <input name="data[User][gender]" id="UserGenderM" value="M"
+            type="radio" />
         <label for="UserGenderM">Male</label>
-        <input name="data[User][gender]" id="UserGenderF" value="F" type="radio" />
+        <input name="data[User][gender]" id="UserGenderF" value="F"
+            type="radio" />
         <label for="UserGenderF">Female</label>
 
     If for some reason you don't want the hidden input, setting
@@ -1339,7 +1228,11 @@ Datetime options
     * ``$attributes['multiple']`` If 'multiple' has been set to true for an input that
       outputs a select, the select will allow multiple selections::
 
-        echo $this->Form->select('Model.field', $options, array('multiple' => true));
+        echo $this->Form->select(
+            'Model.field',
+            $options,
+            array('multiple' => true)
+        );
 
       Alternatively set 'multiple' to 'checkbox' to output a list of
       related check boxes::
@@ -1358,13 +1251,16 @@ Datetime options
 
         <div class="input select">
            <label for="ModelField">Field</label>
-           <input name="data[Model][field]" value="" id="ModelField" type="hidden">
+           <input name="data[Model][field]" value="" id="ModelField"
+            type="hidden">
            <div class="checkbox">
-              <input name="data[Model][field][]" value="Value 1" id="ModelField1" type="checkbox">
+              <input name="data[Model][field][]" value="Value 1"
+                id="ModelField1" type="checkbox">
               <label for="ModelField1">Label 1</label>
            </div>
            <div class="checkbox">
-              <input name="data[Model][field][]" value="Value 2" id="ModelField2" type="checkbox">
+              <input name="data[Model][field][]" value="Value 2"
+                id="ModelField2" type="checkbox">
               <label for="ModelField2">Label 2</label>
            </div>
         </div>
@@ -1388,13 +1284,16 @@ Datetime options
 
         <div class="input select">
            <label for="ModelField">Field</label>
-           <input name="data[Model][field]" value="" id="ModelField" type="hidden">
+           <input name="data[Model][field]" value="" id="ModelField"
+            type="hidden">
            <div class="checkbox">
-              <input name="data[Model][field][]" disabled="disabled" value="Value 1" id="ModelField1" type="checkbox">
+              <input name="data[Model][field][]" disabled="disabled"
+                value="Value 1" id="ModelField1" type="checkbox">
               <label for="ModelField1">Label 1</label>
            </div>
            <div class="checkbox">
-              <input name="data[Model][field][]" value="Value 2" id="ModelField2" type="checkbox">
+              <input name="data[Model][field][]" value="Value 2"
+                id="ModelField2" type="checkbox">
               <label for="ModelField2">Label 2</label>
            </div>
         </div>
@@ -1408,7 +1307,9 @@ Datetime options
     the form enctype is set to "multipart/form-data", so start off with
     a create function such as the following::
 
-        echo $this->Form->create('Document', array('enctype' => 'multipart/form-data'));
+        echo $this->Form->create('Document', array(
+            'enctype' => 'multipart/form-data'
+        ));
         // OR
         echo $this->Form->create('Document', array('type' => 'file'));
 
@@ -1545,7 +1446,10 @@ Will output:
     bool and determines whether to HTML entity encode the $title of the button.
     Defaults to false::
 
-        echo $this->Form->button('Submit Form', array('type' => 'submit', 'escape' => true));
+        echo $this->Form->button('Submit Form', array(
+            'type' => 'submit',
+            'escape' => true
+        ));
 
 .. php:method:: postButton(string $title, mixed $url, array $options = array ())
 
@@ -1735,7 +1639,11 @@ inputDefaults. You can override the default options by declaring the option in t
 input() call::
 
     echo $this->Form->input('password'); // No div, no label with class 'fancy'
-    echo $this->Form->input('username', array('label' => 'Username')); // has a label element same defaults
+    // has a label element same defaults
+    echo $this->Form->input(
+        'username',
+        array('label' => 'Username')
+    );
 
 SecurityComponentとの協調
 =========================
