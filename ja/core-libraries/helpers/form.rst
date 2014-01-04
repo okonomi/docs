@@ -409,9 +409,9 @@ field.  Internally ``input()`` delegates to other methods in FormHelper.
 フィールドの命名規則
 --------------------
 
-The Form helper is pretty smart. Whenever you specify a field name
-with the form helper methods, it'll automatically use the current
-model name to build an input with a format like the following:
+Formヘルパーはかしこいです。
+あなたは、フォームヘルパーメソッドでフィールド名を指定するとき、
+自動的に次のような形式でinputタグを組み立てるために、現在のモデル名を使用します。
 
 .. code-block:: html
 
