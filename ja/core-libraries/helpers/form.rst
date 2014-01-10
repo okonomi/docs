@@ -204,6 +204,9 @@ create() にはオプションがいくつかあります:
 
 .. php:method:: end($options = null)
 
+    Formヘルパはフォームを完了させる ``end()`` メソッドを持っています。
+    しばしば、 ``end()`` はformの閉じタグを出力しますが、
+
     The FormHelper includes an ``end()`` method that completes the
     form. Often, ``end()`` only outputs a closing form tag, but
     using ``end()`` also allows the FormHelper to insert needed hidden
